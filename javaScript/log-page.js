@@ -1,4 +1,3 @@
-// Predefined list of users (in memory)
 let users = [
   { username: "arun", email: "arun@example.com", password: "1234" },
   { username: "gokul", email: "gokul@example.com", password: "abcd" },
@@ -6,12 +5,10 @@ let users = [
   { username: "guru", email: "guru@example.com", password: "1111" },
 ];
 
-// Try to load existing users from localStorage (persistent)
 if (localStorage.getItem("users")) {
   users = JSON.parse(localStorage.getItem("users"));
 }
 
-// ----- TAB SWITCH -----
 const loginTab = document.getElementById("login-Tab");
 const signupTab = document.getElementById("Signin-Tab");
 const loginForm = document.getElementById("login-page");
@@ -31,7 +28,6 @@ signupTab.addEventListener("click", () => {
   loginForm.classList.remove("active");
 });
 
-// ----- LOGIN FORM -----
 loginForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -56,7 +52,6 @@ loginForm.addEventListener("submit", (event) => {
   loginForm.reset();
 });
 
-// ----- SIGNUP FORM -----
 signupForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
