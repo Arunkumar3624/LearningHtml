@@ -1,4 +1,3 @@
-// Predefined list of users (in memory)
 let users = [
   { username: "arun", email: "arun@example.com", password: "1234" },
   { username: "gokul", email: "gokul@example.com", password: "abcd" },
@@ -6,12 +5,12 @@ let users = [
   { username: "guru", email: "guru@example.com", password: "1111" },
 ];
 
-// Try to load existing users from localStorage (persistent)
+// 🔹 Load from localStorage if present
 if (localStorage.getItem("users")) {
   users = JSON.parse(localStorage.getItem("users"));
 }
 
-// ----- TAB SWITCH -----
+// 🔹 Get elements
 const loginTab = document.getElementById("login-Tab");
 const signupTab = document.getElementById("Signin-Tab");
 const loginForm = document.getElementById("login-page");
@@ -31,7 +30,6 @@ signupTab.addEventListener("click", () => {
   loginForm.classList.remove("active");
 });
 
-// ----- LOGIN FORM -----
 loginForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -48,6 +46,9 @@ loginForm.addEventListener("submit", (event) => {
 
   if (userFound) {
     console.log(`✅ Login successful! Welcome, ${userFound.username}!`);
+    sessionStorage.setItem("loggedInUser", JSON.stringify(userFound));
+    console.log("➡️ Redirecting to Home page...");
+    window.location.replace("/project-learn/HTML/Home.html");
   } else {
     console.log("❌ Invalid email or password. Please try again.");
   }
@@ -56,7 +57,6 @@ loginForm.addEventListener("submit", (event) => {
   loginForm.reset();
 });
 
-// ----- SIGNUP FORM -----
 signupForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -68,14 +68,19 @@ signupForm.addEventListener("submit", (event) => {
   const usernameExists = users.some(
     (u) => u.username.toLowerCase() === newUser.username.toLowerCase()
   );
+  const emailExists = users.some(
+    (u) => u.email.toLowerCase() === newUser.email.toLowerCase()
+  );
 
-  if (usernameExists) {
-    console.log("⚠️ Username already exists. Please login instead.");
+  if (usernameExists || emailExists) {
+    console.log("⚠️ Username or Email already exists. Please login instead.");
   } else {
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
     console.log("✅ Registration successful!");
     console.log("📗 Updated users list:", JSON.stringify(users, null, 2));
+    console.log("➡️ Redirecting to Home page...");
+    window.location.replace("/project-learn/HTML/Home.html");
   }
 
   signupForm.reset();
