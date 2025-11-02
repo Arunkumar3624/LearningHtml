@@ -5,12 +5,10 @@ let users = [
   { username: "guru", email: "guru@example.com", password: "1111" },
 ];
 
-// 🔹 Load from localStorage if present
 if (localStorage.getItem("users")) {
   users = JSON.parse(localStorage.getItem("users"));
 }
 
-// 🔹 Get elements
 const loginTab = document.getElementById("login-Tab");
 const signupTab = document.getElementById("Signin-Tab");
 const loginForm = document.getElementById("login-page");
